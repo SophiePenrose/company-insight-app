@@ -8,6 +8,7 @@ class CompaniesHouseClient:
     def __init__(self, api_key: str, base_url: str = "https://api.company-information.service.gov.uk"):
         if not api_key:
             raise ValueError("Companies House API key is required")
+
         token = base64.b64encode(f"{api_key}:".encode()).decode()
         self.base_url = base_url
         self.session = requests.Session()
