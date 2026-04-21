@@ -1,0 +1,30 @@
+accepted_accounts_patterns:
+  - name: group_accounts
+    regex: "group of companies'? accounts made up to"
+    rank: 1
+    qualifies_for_turnover_gate: true
+    is_group_accounts: true
+
+  - name: full_accounts
+    regex: "full accounts made up to"
+    rank: 2
+    qualifies_for_turnover_gate: true
+    is_group_accounts: false
+
+  - name: medium_company_accounts
+    regex: "accounts for a medium company made up to"
+    rank: 3
+    qualifies_for_turnover_gate: true
+    is_group_accounts: false
+
+  - name: audit_exemption_subsidiary_accounts
+    regex: "audit exemption subsidiary accounts made up to"
+    rank: 4
+    qualifies_for_turnover_gate: true
+    is_group_accounts: false
+
+  - name: other_accounts_like
+    regex: "accounts made up to"
+    rank: 9
+    qualifies_for_turnover_gate: false
+    is_group_accounts: false
