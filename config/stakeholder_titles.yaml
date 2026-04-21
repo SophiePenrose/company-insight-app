@@ -1,0 +1,30 @@
+title_map:
+  economic_buyer:
+    - Chief Financial Officer
+    - CFO
+    - Finance Director
+    - Financial Director
+    - CEO
+    - Chief Executive Officer
+
+  operational_buyer:
+    - Head of Finance
+    - VP Finance
+    - Financial Controller
+    - Treasurer
+    - Head of Treasury
+    - Finance Manager
+
+  technical_influencer:
+    - Head of Payments
+    - Payments Lead
+    - Finance Systems Manager
+    - ERP Lead
+    - Head of Financial Systems
+    - Finance Systems Lead
+
+  operational_influencer:
+    - COO
+    - Chief Operating Officer
+    - Head of Operations
+    - Procurement Director
