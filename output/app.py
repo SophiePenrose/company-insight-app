@@ -1,6 +1,6 @@
 import json
 import re
-from typing import Dict, List, Optional
+from typing import Dict, List
 
 import pandas as pd
 import streamlit as st
@@ -67,24 +67,20 @@ def infer_revolut_fit(excerpts: str, providers: str, issues: str) -> Dict[str, s
 
 def enrich_df(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-    if "excerpts" not in df.columns:
-        df["excerpts"] = ""
-    if "providers_found" not in df.columns:
-        df["providers_found"] = ""
-    if "issues_found" not in df.columns:
-        df["issues_found"] = ""
-    if "issue_origin" not in df.columns:
-        df["issue_origin"] = ""
-    if "key_updates" not in df.columns:
-        df["key_updates"] = ""
-    if "sic_codes" not in df.columns:
-        df["sic_codes"] = ""
-    if "latest_turnover_gbp" not in df.columns:
-        df["latest_turnover_gbp"] = None
-    if "company_name" not in df.columns:
-        df["company_name"] = ""
-    if "company_number" not in df.columns:
-        df["company_number"] = ""
+    defaults = {
+        "excerpts": "",
+        "providers_found": "",
+        "issues_found": "",
+        "issue_origin": "",
+        "key_updates": "",
+        "sic_codes": "",
+        "latest_turnover_gbp": None,
+        "company_name": "",
+        "company_number": "",
+    }
+    for col, val in defaults.items():
+        if col not in df.columns:
+            df[col] = val
 
     auto_issues = []
     auto_origins = []
@@ -92,13 +88,8 @@ def enrich_df(df: pd.DataFrame) -> pd.DataFrame:
     fit_notes = []
 
     for _, row in df.iterrows():
-        text = " ".join([
-            str(row.get("issues_found", "")),
-            str(row.get("excerpts", "")),
-            str(row.get("key_updates", "")),
-        ])
+        text = " ".join([str(row.get("issues_found", "")), str(row.get("excerpts", "")), str(row.get("key_updates", ""))])
         issue_hits = detect_keywords(text, DEFAULT_ISSUE_KEYWORDS)
-
         auto_issues.append(", ".join(sorted(issue_hits.keys())) if issue_hits else str(row.get("issues_found", "")))
 
         origins = []
@@ -112,11 +103,7 @@ def enrich_df(df: pd.DataFrame) -> pd.DataFrame:
             origins.append("treasury / cash returns")
         auto_origins.append(", ".join(origins) if origins else str(row.get("issue_origin", "")))
 
-        fit = infer_revolut_fit(
-            str(row.get("excerpts", "")),
-            str(row.get("providers_found", "")),
-            str(row.get("issues_found", "")),
-        )
+        fit = infer_revolut_fit(str(row.get("excerpts", "")), str(row.get("providers_found", "")), str(row.get("issues_found", "")))
         fit_scores.append(fit["score"])
         fit_notes.append(fit["notes"])
 
@@ -177,32 +164,23 @@ provider_filter = st.sidebar.text_input("Provider mentioned")
 fit_min = st.sidebar.slider("Min Revolut fit score", 0, 100, 20)
 
 view = edf.copy()
-
 if sic_filter:
     view = view[view["sic_codes"].astype(str).str.contains(sic_filter, case=False, na=False)]
-
 view = view[pd.to_numeric(view["latest_turnover_gbp"], errors="coerce").fillna(0) >= min_turnover]
-
 if issue_filter:
     view = view[view["issues_found"].astype(str).apply(lambda s: any(i.lower() in s.lower() for i in issue_filter))]
-
 if origin_filter:
     view = view[view["issue_origin"].astype(str).apply(lambda s: any(i.lower() in s.lower() for i in origin_filter))]
-
 if provider_filter:
     view = view[view["providers_found"].astype(str).str.contains(provider_filter, case=False, na=False)]
-
 view = view[view["revolut_fit_score"] >= fit_min]
 
 c1, c2, c3, c4 = st.columns(4)
 c1.metric("Companies", len(view))
-
 median_turnover = view["latest_turnover_gbp"].dropna().median() if len(view) and "latest_turnover_gbp" in view else None
 c2.metric("Median turnover", f"£{median_turnover:,.0f}" if pd.notna(median_turnover) else "—")
-
 avg_fit = view["revolut_fit_score"].mean() if len(view) else None
 c3.metric("Avg fit score", f"{avg_fit:.0f}" if pd.notna(avg_fit) else "—")
-
 provider_count = int(view["providers_found"].fillna("").astype(str).str.len().gt(0).sum()) if len(view) else 0
 c4.metric("Provider mentions", provider_count)
 
@@ -220,8 +198,7 @@ show_cols = [
         "revolut_fit_notes",
         "key_updates",
         "excerpts",
-    ]
-    if c in view.columns
+    ] if c in view.columns
 ]
 st.dataframe(view[show_cols], use_container_width=True, height=520)
 
@@ -244,24 +221,18 @@ for item in extra_fields:
     st.write("- " + item)
 
 st.subheader("Suggested target schema")
-st.code(
-    json.dumps(
-        {
-            "company_number": "",
-            "company_name": "",
-            "sic_codes": [""],
-            "latest_turnover_gbp": 0,
-            "filing_date": "",
-            "cross_border_exposure": "low|medium|high",
-            "issues_found": ["foreign_exchange", "cash_flow"],
-            "issue_origin": ["banking", "treasury"],
-            "providers_found": ["HSBC", "Xero"],
-            "key_updates": ["EU expansion", "new lender"],
-            "excerpt_evidence": [{"topic": "fx", "text": "", "source": "accounts 2025"}],
-            "revolut_fit_score": 0,
-            "revolut_fit_notes": "",
-        },
-        indent=2,
-    ),
-    language="json",
-)
+st.code(json.dumps({
+    "company_number": "",
+    "company_name": "",
+    "sic_codes": [""],
+    "latest_turnover_gbp": 0,
+    "filing_date": "",
+    "cross_border_exposure": "low|medium|high",
+    "issues_found": ["foreign_exchange", "cash_flow"],
+    "issue_origin": ["banking", "treasury"],
+    "providers_found": ["HSBC", "Xero"],
+    "key_updates": ["EU expansion", "new lender"],
+    "excerpt_evidence": [{"topic": "fx", "text": "", "source": "accounts 2025"}],
+    "revolut_fit_score": 0,
+    "revolut_fit_notes": "",
+}, indent=2), language="json")
