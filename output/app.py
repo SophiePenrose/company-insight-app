@@ -45,11 +45,26 @@ def append_jsonl(path: Path, row: dict):
 def load_checkpoint():
     if CHECKPOINT_FILE.exists():
         return json.loads(CHECKPOINT_FILE.read_text())
-    return {"processed": 0, "completed": False, "query": ""}
+    return {"processed": 0, "completed": False, "query": "", "start_index": 0}
 
 
-def save_checkpoint(processed: int, completed: bool, query: str):
-    CHECKPOINT_FILE.write_text(json.dumps({"processed": processed, "completed": completed, "query": query}, indent=2))
+def save_checkpoint(processed: int, completed: bool, query: str, start_index: int):
+    CHECKPOINT_FILE.write_text(json.dumps({"processed": processed, "completed": completed, "query": query, "start_index": start_index}, indent=2))
+
+
+def search_all(ch_client, query: str, max_pages: int = 10, items_per_page: int = 100):
+    all_items = []
+    for page in range(max_pages):
+        start_index = page * items_per_page
+        payload = ch_client.search_companies(query=query, items_per_page=items_per_page, start_index=start_index)
+        items = payload.get("items", [])
+        if not items:
+            break
+        all_items.extend(items)
+        total = payload.get("total_results", len(all_items))
+        if start_index + items_per_page >= total:
+            break
+    return all_items
 
 
 st.title("Company Insight Screener")
@@ -59,6 +74,8 @@ with st.sidebar:
     st.header("Companies House")
     api_key = st.text_input("Companies House API key", type="password")
     query = st.text_input("Search query", value="company")
+    max_pages = st.number_input("Pages to search", min_value=1, max_value=1000, value=10, step=1)
+    items_per_page = st.number_input("Items per page", min_value=1, max_value=100, value=100, step=1)
     batch_size = st.number_input("Batch size", min_value=1, max_value=500, value=25, step=5)
     build_clicked = st.button("Build company list")
     resume_clicked = st.button("Resume analysis")
@@ -75,9 +92,10 @@ checkpoint = load_checkpoint()
 results = load_jsonl(RESULTS_FILE)
 candidates = load_jsonl(CANDIDATES_FILE)
 
-st.metric("Saved candidates", len(candidates))
-st.metric("Saved results", len(results))
-st.metric("Last processed", checkpoint.get("processed", 0))
+c1, c2, c3 = st.columns(3)
+c1.metric("Saved candidates", len(candidates))
+c2.metric("Saved results", len(results))
+c3.metric("Last processed", checkpoint.get("processed", 0))
 
 if build_clicked or resume_clicked:
     if not api_key:
@@ -88,16 +106,15 @@ if build_clicked or resume_clicked:
     analyser = CompanyAnalyser(ch_client=ch_client, matcher_config={})
 
     if build_clicked:
-        st.write("Searching Companies House...")
-        payload = ch_client.search_companies(query=query, items_per_page=100, start_index=0)
-        items = payload.get("items", [])
+        st.write("Searching Companies House across pages...")
+        items = search_all(ch_client, query=query, max_pages=int(max_pages), items_per_page=int(items_per_page))
         if not items:
             st.warning("No companies found.")
             st.stop()
         with CANDIDATES_FILE.open("w", encoding="utf-8") as f:
             for item in items:
                 f.write(json.dumps(item) + "\n")
-        save_checkpoint(processed=0, completed=False, query=query)
+        save_checkpoint(processed=0, completed=False, query=query, start_index=0)
         st.success(f"Saved {len(items)} candidates.")
         st.stop()
 
@@ -108,10 +125,11 @@ if build_clicked or resume_clicked:
 
         candidate_rows = load_jsonl(CANDIDATES_FILE)
         start = int(checkpoint.get("processed", 0))
+        end = min(start + int(batch_size), len(candidate_rows))
         progress = st.progress(0)
         status = st.empty()
 
-        for idx in range(start, min(start + int(batch_size), len(candidate_rows))):
+        for idx in range(start, end):
             candidate = candidate_rows[idx]
             company_number = candidate.get("company_number")
             if not company_number:
@@ -123,7 +141,7 @@ if build_clicked or resume_clicked:
             except Exception as e:
                 append_jsonl(RESULTS_FILE, {"company_number": company_number, "error": str(e)})
             progress.progress((idx + 1) / len(candidate_rows))
-            save_checkpoint(processed=idx + 1, completed=(idx + 1) >= len(candidate_rows), query=checkpoint.get("query", query))
+            save_checkpoint(processed=idx + 1, completed=(idx + 1) >= len(candidate_rows), query=checkpoint.get("query", query), start_index=idx + 1)
 
         st.success("Batch finished. Run Resume analysis again to continue.")
         st.stop()
@@ -137,4 +155,4 @@ else:
 '''
 Path('output').mkdir(exist_ok=True)
 Path('output/app.py').write_text(text)
-print('updated output/app.py')
+print('updated output/app.py with pagination')
