@@ -1,0 +1,74 @@
+fx_and_international_money_movement:
+  positive_signals:
+    - fx_exposure
+    - overseas_suppliers
+    - overseas_customers
+    - international_subsidiaries
+    - treasury_language
+    - currency_risk
+    - multi_currency_operations
+  threshold_primary: 70
+
+merchant_acquiring_and_payment_acceptance:
+  positive_signals:
+    - ecommerce_model
+    - processor_mention
+    - checkout_complexity
+    - chargeback_signal
+    - settlement_signal
+    - online_payments
+    - card_acceptance
+  threshold_primary: 70
+
+core_business_banking:
+  positive_signals:
+    - multi_entity_complexity
+    - approval_complexity
+    - legacy_bank_friction
+    - finance_team_scaling
+    - fragmented_banking
+  threshold_primary: 65
+
+cards_and_spend_management:
+  positive_signals:
+    - employee_spend_complexity
+    - travel_spend
+    - saas_spend
+    - weak_approvals
+    - virtual_card_need
+    - spend_controls
+  threshold_primary: 60
+
+accounting_and_back_office_integrations:
+  positive_signals:
+    - reconciliation_pain
+    - month_end_close_pain
+    - erp_mention
+    - accounting_system_mention
+    - finance_reporting_pain
+  threshold_primary: 60
+
+apis_and_developer_tooling:
+  positive_signals:
+    - custom_checkout
+    - recurring_billing
+    - platform_model
+    - developer_hiring
+    - automation_need
+  threshold_primary: 55
+
+travel_and_conferma_virtual_cards:
+  positive_signals:
+    - travel_industry
+    - booking_payments
+    - travel_reconciliation
+    - virtual_booking_cards
+  threshold_primary: 55
+
+lending_and_credit_adjacent_products:
+  positive_signals:
+    - working_capital_pressure
+    - settlement_timing_issue
+    - liquidity_pressure
+    - merchant_volume
+  threshold_primary: 50
