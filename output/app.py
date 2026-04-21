@@ -72,7 +72,7 @@ st.caption("Build a company list from Companies House, then analyse new filings 
 
 with st.sidebar:
     st.header("Companies House")
-    api_key = st.text_input("Companies House API key", type="password")
+    api_key = st.text_input("b238551e-369b-4407-acfc-0cc3dad71cf2", type="password")
     query = st.text_input("Search query", value="company")
     max_pages = st.number_input("Pages to search", min_value=1, max_value=1000, value=10, step=1)
     items_per_page = st.number_input("Items per page", min_value=1, max_value=100, value=100, step=1)
