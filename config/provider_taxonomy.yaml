@@ -1,0 +1,85 @@
+categories:
+  digital_business_banking:
+    - Revolut Business
+    - Wise Business
+    - Airwallex
+    - Tide
+    - Monzo Business
+    - Starling Bank
+
+  payment_processors:
+    - Stripe
+    - Adyen
+    - Checkout.com
+    - PayPal
+    - Braintree
+    - Worldpay
+
+  payment_gateways:
+    - Stripe Payments
+    - Adyen Checkout
+    - Checkout.com
+    - Mollie
+    - Braintree
+    - PayPal
+
+  corporate_cards:
+    - Brex
+    - Ramp
+    - Pleo
+    - Spendesk
+    - Payhawk
+    - Soldo
+
+  fx_platforms:
+    - Wise
+    - Airwallex
+    - Payoneer
+    - WorldFirst
+    - OFX
+    - Currencycloud
+
+  treasury_tools:
+    - Kyriba
+    - Trovata
+    - GTreasury
+    - Nomentia
+    - Agicap
+
+  ap_automation:
+    - Tipalti
+    - Bill.com
+    - Melio
+    - Stampli
+    - AvidXchange
+
+  billing:
+    - Stripe Billing
+    - Chargebee
+    - Recurly
+    - Paddle
+    - Zuora
+
+  bank_payments:
+    - GoCardless
+    - TrueLayer
+    - Volt
+    - Yapily
+    - Tink
+
+  accounting_erp:
+    - Xero
+    - QuickBooks
+    - NetSuite
+    - Sage
+    - SAP
+    - Zoho Books
+
+  all_in_one_fintech:
+    - Revolut Business
+    - Airwallex
+    - Brex
+    - Ramp
+    - Stripe
+    - Adyen
+    - Wise
