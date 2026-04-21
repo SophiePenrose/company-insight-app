@@ -1,0 +1,102 @@
+cash_flow_and_liquidity:
+  - cash_flow_visibility
+  - forecasting_difficulty
+  - slow_settlement
+  - idle_cash
+  - fragmented_liquidity
+
+payments_and_transfers:
+  - high_international_transfer_fees
+  - slow_cross_border_settlement
+  - fx_markup_transparency
+  - manual_supplier_payments
+  - batch_payments
+
+banking_provider_friction:
+  - slow_onboarding
+  - poor_digital_ux
+  - low_api_access
+  - compliance_delays
+  - poor_support
+
+expense_management:
+  - centralized_card_control
+  - manual_expenses
+  - receipt_collection
+  - spend_visibility
+  - budget_tracking
+
+finance_stack_fragmentation:
+  - multiple_tools
+  - manual_reconciliation
+  - poor_accounting_integration
+  - too_many_vendors
+
+operational_efficiency:
+  - too_much_manual_work
+  - recurring_payments_without_automation
+  - slow_month_end_close
+  - headcount_growth_for_ops
+
+cost_control:
+  - hidden_banking_fees
+  - expensive_fx_markups
+  - high_transfer_costs
+  - expensive_card_programs
+  - high_processing_costs
+
+global_operations:
+  - international_supplier_payments
+  - global_contractor_payments
+  - multi_currency_accounting
+  - fx_volatility
+  - international_account_opening
+
+financial_visibility_and_reporting:
+  - limited_real_time_reporting
+  - poor_categorization
+  - weak_spend_analytics
+  - fragmented_reporting
+
+security_and_compliance:
+  - weak_fraud_monitoring
+  - weak_approval_workflows
+  - audit_readiness
+
+treasury_and_yield:
+  - low_yield_cash
+  - no_cash_sweeping
+  - liquidity_management
+
+merchant_payments_and_checkout:
+  - high_card_processing_fees
+  - poor_checkout_conversion
+  - slow_settlement
+  - multi_currency_checkout
+
+payment_infrastructure:
+  - fragmented_payment_stack
+  - api_integration_difficulty
+  - limited_developer_tooling
+  - lack_of_automation
+
+reconciliation_and_accounting:
+  - manual_payout_matching
+  - payment_data_not_syncing
+  - delayed_payout_reporting
+
+fraud_and_chargebacks:
+  - high_chargeback_rates
+  - weak_fraud_detection
+  - manual_chargeback_handling
+
+stakeholder_mapping:
+  - CFO
+  - CEO
+  - Finance Director
+  - Treasurer
+  - Head of Treasury
+  - Head of Finance
+  - Financial Controller
+  - Head of Payments
+  - COO
