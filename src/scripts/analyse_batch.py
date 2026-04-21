@@ -65,7 +65,7 @@ def search_candidates(ch_client: CompaniesHouseClient, query: str, pages: int = 
 
 def main():
     api_key = ""
-    query = "company"
+    query = "b238551e-369b-4407-acfc-0cc3dad71cf2"
     batch_size = 25
 
     ch_client = CompaniesHouseClient(api_key=api_key)
