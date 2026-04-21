@@ -1,0 +1,23 @@
+overall_readiness:
+  fx_cross_border_complexity: 20
+  merchant_payment_need: 18
+  finance_stack_fragmentation: 14
+  international_growth_and_recency: 12
+  banking_provider_friction: 10
+  spend_control_need: 10
+  reconciliation_burden: 10
+  treasury_liquidity_pressure: 6
+
+priority_tiers:
+  A:
+    min: 80
+    max: 100
+  B:
+    min: 65
+    max: 79.99
+  C:
+    min: 50
+    max: 64.99
+  D:
+    min: 0
+    max: 49.99
