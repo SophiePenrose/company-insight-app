@@ -1,0 +1,73 @@
+{
+  "discovery_date": "2026-04-21T19:36:39.552936",
+  "total_candidates": 9,
+  "criteria": {
+    "min_turnover_gbp": 15000000,
+    "max_turnover_gbp": 500000000
+  },
+  "candidates": [
+    {
+      "company_number": "16771604",
+      "company_name": "INTERNATIONAL ACADEMIC UNION OF OCEANIC ARCHITECTURE",
+      "search_term": "international",
+      "discovery_method": "strategic_search",
+      "search_score": 0.8095171761242362
+    },
+    {
+      "company_number": "SL015389",
+      "company_name": "EXPORT EUROPE LP",
+      "search_term": "export",
+      "discovery_method": "strategic_search",
+      "search_score": 0.8575898020837465
+    },
+    {
+      "company_number": "SL021295",
+      "company_name": "GLOBAL L.P.",
+      "search_term": "global",
+      "discovery_method": "strategic_search",
+      "search_score": 0.7837211043053989
+    },
+    {
+      "company_number": "LP005705",
+      "company_name": "TECHNOLOGY & FACILITIES",
+      "search_term": "technology",
+      "discovery_method": "strategic_search",
+      "search_score": 0.7871113548864841
+    },
+    {
+      "company_number": "SC155406",
+      "company_name": "TECHNOLOGY ASSOCIATION OF VISUALLY IMPAIRED PEOPLE",
+      "search_term": "technology",
+      "discovery_method": "strategic_search",
+      "search_score": 0.8328968537314767
+    },
+    {
+      "company_number": "SL019960",
+      "company_name": "SOFTWARE ACCESS LP",
+      "search_term": "software",
+      "discovery_method": "strategic_search",
+      "search_score": 0.7688165802719628
+    },
+    {
+      "company_number": "SL003580",
+      "company_name": "SOFTWARE APPLICATION CONSULTING L.P.",
+      "search_term": "software",
+      "discovery_method": "strategic_search",
+      "search_score": 0.736156970725097
+    },
+    {
+      "company_number": "FC018429",
+      "company_name": "SOFTWARE ARTISTRY EUROPE, INC.",
+      "search_term": "software",
+      "discovery_method": "strategic_search",
+      "search_score": 0.8122603453074406
+    },
+    {
+      "company_number": "BR002844",
+      "company_name": "SOFTWARE ARTISTRY EUROPE, INC.",
+      "search_term": "software",
+      "discovery_method": "strategic_search",
+      "search_score": 0.7152883462429402
+    }
+  ]
+}

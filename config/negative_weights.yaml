@@ -1,0 +1,3 @@
+negative_weights:
+  inertia: -10
+  trust_hurdle: -10

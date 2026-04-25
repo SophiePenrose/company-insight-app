@@ -1,0 +1,20 @@
+# Configuration for company insight app
+# List your Companies House API keys here (add as many as you have)
+companies_house_api_keys:
+  - b238551e-369b-4407-acfc-0cc3dad71cf2
+  # Add more keys as needed
+
+# Batch size for processing companies (number per worker or per run)
+batch_size: 100
+
+# Fields to extract (for future flexibility)
+fields_to_extract:
+  - company_name
+  - turnover_gbp
+  - industry
+  - business_model
+  - triggers
+  - providers
+
+# Max docs to fetch per company
+max_docs: 2

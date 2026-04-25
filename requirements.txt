@@ -1,2 +1,10 @@
 streamlit
 pandas
+requests
+pydantic
+pymupdf
+pytesseract
+Pillow
+openai
+pytest
+pyyaml
